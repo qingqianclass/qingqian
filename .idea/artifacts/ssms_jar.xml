@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ssms:jar">
+    <output-path>D:/生产jar包</output-path>
+    <root id="archive" name="ssms.jar">
+      <element id="module-output" name="ssms" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/com/runajian2202/lib/mysql-connector-j-8.0.32.jar" path-in-jar="/" />
+      <element id="library" level="project" name="mysql-connector-j-8.0.32" />
+    </root>
+  </artifact>
+</component>
