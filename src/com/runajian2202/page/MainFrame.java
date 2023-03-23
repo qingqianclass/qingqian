@@ -83,6 +83,7 @@ public class MainFrame extends JFrame implements ActionListener {
         jbt4.setFocusPainted(false);
         jbt5.setFocusPainted(false);
         jbt6.setFocusPainted(false);
+        jbt7.setFocusPainted(false);
 
         //主体
         jpl2 = new JPanel();

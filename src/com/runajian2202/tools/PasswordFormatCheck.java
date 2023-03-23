@@ -1,6 +1,7 @@
 package com.runajian2202.tools;
 
 public class PasswordFormatCheck {
+    //密码格式限制
    public static char[] AA={'a','b','c','d','e','f','g','h','i','j',
             'k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
     public static  char[]BB={'A','B','C','D','E','F','G','H','I','J',

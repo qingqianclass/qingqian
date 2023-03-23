@@ -23,7 +23,7 @@ import java.sql.SQLException;
  * @author qingqian
  */
 public class login extends JFrame implements KeyListener, ActionListener {
-    JLabel jlb0, jlb1, jlb2,jlb3;
+    JLabel jlb0, jlb1, jlb2;
     JTextField jtf;
     JPasswordField jpf;
     JButton jbt0, jbt1,jbt2;

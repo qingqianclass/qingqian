@@ -30,14 +30,4 @@ public class JdbcUtil {
         }
        return conn;
     }
-//    public static int select(String sql) throws SQLException {
-//        JdbcUtil.getConn();
-//        statement=conn.createStatement();
-//        ResultSet rs=statement.executeQuery(sql);
-//        rs.next();
-//        int number=rs.getInt("number");
-//        return number;
-//    }
-
-
 }

@@ -49,7 +49,6 @@ public class ScoreStatistics extends JPanel {
         jtm.setRowCount(0);
         Connection conn= JdbcUtil.getConn();
         try {
-            User user=new User();
             ResultSet rs = ScoreDao.sum(conn,sheetname);
             while (rs.next()){
                 Vector keys = new Vector();

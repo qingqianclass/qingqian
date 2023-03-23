@@ -170,7 +170,6 @@ public class ScoreUpdate extends JPanel implements ActionListener {
                     JOptionPane.showMessageDialog(null,"成绩必须大于0小于150");
                     jtf4.setText("");
                     return;
-
                 }
             try {
                 //总分计算,使用BigDecimal解决double类型精度丢失
@@ -182,7 +181,10 @@ public class ScoreUpdate extends JPanel implements ActionListener {
                 //BigDecimal只是解决精度问题的手段，获取double数据才是我们的目的
                 double sum2 = sum.doubleValue();
 
-
+                int i=JOptionPane.showConfirmDialog(null,"确认修改吗");
+                if (i!=0){
+                    return;
+                }
                 score.setSid(Integer.parseInt(jtf0.getText()));
                 score.setSname(jtf1.getText());
                 score.setChinese(Double.parseDouble(jtf2.getText()));
