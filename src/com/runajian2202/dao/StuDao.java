@@ -38,9 +38,15 @@ public class StuDao {
         PreparedStatement ps=conn.prepareStatement(sql);
         return ps.executeUpdate();
     }
-    //判断查询学号是否存在
+    //判断查询students表学号是否存在
     public static ResultSet  stuIdChecked(Connection conn,String s) throws SQLException {
-        String sql="select id FROM students WHERE id="+s;
+        String sql="select id FROM idtable WHERE id="+s;
+        PreparedStatement ps = conn.prepareStatement(sql);
+        return ps.executeQuery();
+    }
+    //判断查询idtable表学号是否存在
+    public static ResultSet  stuIdChecked_as_idtable(Connection conn,String s) throws SQLException {
+        String sql="select ID FROM idtable WHERE ID="+s;
         PreparedStatement ps = conn.prepareStatement(sql);
         return ps.executeQuery();
     }

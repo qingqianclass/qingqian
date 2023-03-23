@@ -170,10 +170,17 @@ public class ScoreAdd extends JPanel implements ActionListener {
                 try {
                     //f5.getText()用户名,也是就要添加的表的表名
                     ResultSet rs1 = DuplicateCheck.addTools(conn1, score,jtf5.getText());
+                    ResultSet rs2= StuDao.stuIdChecked_as_idtable(conn1,jtf0.getText());
+                    if (rs2.next()){
+                        JOptionPane.showMessageDialog(null,"学号已存在");
+                        jtf0.setText("");
+                        conn1.close();
+                        return;
+                    }
                     if (rs1.next()) {
                         JOptionPane.showMessageDialog(null, "学号已存在");
                         jtf0.setText("");
-                        rs1.close();
+                        conn1.close();
                         return;
                     }
                 } catch (SQLException ex) {
