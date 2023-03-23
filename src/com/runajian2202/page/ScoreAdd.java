@@ -3,6 +3,7 @@ package com.runajian2202.page;
 import com.runajian2202.Model.User;
 import com.runajian2202.dao.ScoreDao;
 import com.runajian2202.Model.Score;
+import com.runajian2202.dao.StuDao;
 import com.runajian2202.tools.DuplicateCheck;
 
 import com.runajian2202.tools.ScoreRange;
@@ -94,6 +95,8 @@ public class ScoreAdd extends JPanel implements ActionListener {
         jbt1.setBackground(Color.magenta);
         jbt1.addActionListener(this);
         jbt1.setFocusPainted(false);
+
+
         //中转用户名
         jtf5 = new JTextField(sheetName);
 
@@ -192,7 +195,6 @@ public class ScoreAdd extends JPanel implements ActionListener {
                 //然而BigDecimal只是解决精度问题的手段，获取double数据才是我们的目的
                 double sum2 = sum.doubleValue();
 
-                System.out.println(sum);
                 score.setSname(name);
                 score.setSid(id);
                 score.setChinese(chinese);
@@ -203,6 +205,8 @@ public class ScoreAdd extends JPanel implements ActionListener {
                 Connection conn = JdbcUtil.getConn();
                 try {
                     int rs = ScoreDao.add(conn, score,jtf5.getText());
+                    //插入学号和老师用户名
+                    StuDao.insertId_and_teacherName(conn,jtf0.getText(),jtf5.getText());
                     if (rs != 0) {
                         JOptionPane.showMessageDialog(null, "录入成功");
                         jtf0.setText("");

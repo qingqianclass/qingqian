@@ -115,10 +115,6 @@ public class login extends JFrame implements KeyListener, ActionListener {
         index.setBackground(bgColor);
     }
 
-    public static void main(String[] args) {
-        new login();
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == jbt0) {

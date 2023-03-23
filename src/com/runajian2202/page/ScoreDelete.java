@@ -3,6 +3,7 @@ package com.runajian2202.page;
 import com.runajian2202.Model.Score;
 import com.runajian2202.Model.User;
 import com.runajian2202.dao.ScoreDao;
+import com.runajian2202.dao.StuDao;
 import com.runajian2202.tools.StringUtil;
 import com.runajian2202.util.JdbcUtil;
 
@@ -146,6 +147,8 @@ public class ScoreDelete extends JPanel implements ActionListener {
             try {
                 int i= JOptionPane.showConfirmDialog(null, "确认删除" );
              if (i==0) {
+                 //删除idTable的对应记录
+                 StuDao.delID_and_teacherName(conn,jtf0.getText());
                  //jtf5.getText()表名
                  int rs = ScoreDao.delete(conn, score,jtf5.getText());
                  if (rs != 0) {

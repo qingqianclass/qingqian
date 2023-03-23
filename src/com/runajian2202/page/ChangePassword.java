@@ -127,7 +127,7 @@ public class ChangePassword extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==jbt){
-            //验证码
+            //切换验证码
             setCode(VerificationCode.code());
             jbt.setText(getCode());
         }

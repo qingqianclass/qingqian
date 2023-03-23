@@ -74,7 +74,7 @@ public class ScoreDao {
         return ps.executeUpdate();
     }
 
-    //修改密码sql语句
+    //修改教师密码sql语句
     public static ResultSet FindPassword(Connection conn,String oldPassword,String name) throws SQLException {
         String sql="select password from teacher where password="+"\""+oldPassword+"\""+" and "+"tname="+"\""+name+"\"";
         PreparedStatement ps = conn.prepareStatement(sql);
@@ -85,4 +85,5 @@ public class ScoreDao {
         PreparedStatement ps = conn.prepareStatement(sql);
         return ps.executeUpdate();
     }
+
 }

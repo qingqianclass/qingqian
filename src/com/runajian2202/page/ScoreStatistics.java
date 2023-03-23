@@ -30,7 +30,6 @@ public class ScoreStatistics extends JPanel {
         columns=new Object[] {
                 "统计/科目","语文","数学","英语"
             };
-        //假数
         data=new Object[][] {};
         jt=new JTable();
         jt.setModel(new DefaultTableModel(data,columns));
@@ -98,7 +97,7 @@ public class ScoreStatistics extends JPanel {
                 keys.add(rs4.getFloat(3));
                 jtm.addRow(keys);
             }
-
+            conn.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

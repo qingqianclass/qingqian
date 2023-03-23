@@ -24,4 +24,10 @@ public class DuplicateCheck {
         ps.setInt(1,s.getSid());
         return ps.executeQuery();
     }
+    public static ResultSet StuAddTools(Connection conn,Stu s) throws SQLException {
+        String sql="select id from students where id=?";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1,s.getId());
+        return ps.executeQuery();
+    }
 }
