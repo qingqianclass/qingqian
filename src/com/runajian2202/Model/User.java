@@ -1,5 +1,9 @@
 package com.runajian2202.Model;
 
+/**
+ * @author qingqian
+ * 教师信息类
+ */
 public class User {
     public String getUserName() {
         return userName;

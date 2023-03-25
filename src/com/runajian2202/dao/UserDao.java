@@ -10,7 +10,7 @@ import java.sql.*;
  *用户信息sql
  */
 public class UserDao {
-
+    //教师登录
     public static ResultSet login(Connection conn, User u) throws SQLException {
         String sql = "select * from teacher where tname=? and password=?" ;
         PreparedStatement ps = conn.prepareStatement(sql);
@@ -18,6 +18,7 @@ public class UserDao {
         ps.setString(2,u.getPassword());
         return ps.executeQuery();
     }
+    //教师注册
     public static int register(Connection conn ,User u) throws SQLException {
         String sql="insert into teacher (tname,password) values(?,?)";
         PreparedStatement ps = conn.prepareStatement(sql);

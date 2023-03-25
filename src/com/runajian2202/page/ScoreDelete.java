@@ -17,6 +17,10 @@ import java.sql.SQLException;
 
 import static com.sun.xml.internal.ws.policy.sourcemodel.wspolicy.XmlToken.Name;
 
+/**
+ * @author qingqian
+ * 删除成绩
+ */
 public class ScoreDelete extends JPanel implements ActionListener {
     JLabel jlb0, jlb1, jlb2, jlb3, jlb4, jlb5;
     JTextField jtf0, jtf1, jtf2, jtf3, jtf4,jtf5;
@@ -86,7 +90,7 @@ public class ScoreDelete extends JPanel implements ActionListener {
         jbt1.setBackground(new Color(255, 142, 133));
         jbt1.addActionListener(this);
         jbt1.setFocusPainted(false);
-        //表名中转
+        //获取用户名:成绩表表名及用户名,土办法
         jtf5=new JTextField(name);
 
 

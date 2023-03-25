@@ -7,6 +7,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * @author qingqian
+ * 教师端主界面
+ */
 public class MainFrame extends JFrame implements ActionListener {
     JPanel jpl0, jpl1, jpl2;
     JButton jbt0, jbt1, jbt2, jbt3, jbt4, jbt5,jbt6,jbt7;

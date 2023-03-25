@@ -1,7 +1,10 @@
 package com.runajian2202.page;
 
 import com.runajian2202.Model.Stu;
+import com.runajian2202.Model.User;
+import com.runajian2202.dao.LockDao;
 import com.runajian2202.dao.StuDao;
+import com.runajian2202.dao.UserDao;
 import com.runajian2202.tools.StringUtil;
 import com.runajian2202.util.JdbcUtil;
 
@@ -14,19 +17,28 @@ import java.awt.event.KeyListener;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.Duration;
+import java.time.LocalDateTime;
 
+/**
+ * 学生登录界面
+ * swing+JFrame
+ *
+ * @author qingqian
+ */
 public class StuLogin extends JFrame implements  KeyListener,ActionListener {
     JLabel jlb0, jlb1, jlb2;
     JTextField jtf;
     JPasswordField jpf;
-    JButton jbt0, jbt1,jbt2;
+    JButton jbt0, jbt1,jbt2,jbt3;
     /*
      * 容器*/
     JPanel index;
+   private int count=3;
 
     public StuLogin() {
         setSize(420, 600);
-        setTitle("学生成绩管理系统");
+        setTitle("学生登录");
         //标题
         jlb0 = new JLabel("欢迎登录", JLabel.CENTER);
 
@@ -79,6 +91,14 @@ public class StuLogin extends JFrame implements  KeyListener,ActionListener {
         jbt2.setBorderPainted(false);
         jbt2.setBackground(new Color(255, 240, 245));
 
+       jbt3=new JButton("切换教师端");
+       jbt3.setBounds(0,520,110,40);
+       jbt3.setFont(new Font("等线",Font.BOLD, 10));
+       jbt3.addActionListener(this);
+       jbt3.setFocusPainted(false);
+       jbt3.setBorderPainted(false);
+       jbt3.setBackground(new Color(255, 240, 245));
+
 
         //添加标签到容器index
         index = new JPanel();
@@ -92,6 +112,7 @@ public class StuLogin extends JFrame implements  KeyListener,ActionListener {
         index.add(jbt0);
         index.add(jbt1);
         index.add(jbt2);
+        index.add(jbt3);
 
         //index容器添加到窗口
         this.add(index);
@@ -109,16 +130,68 @@ public class StuLogin extends JFrame implements  KeyListener,ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
+        //代码逻辑和教师登录一致
         if (e.getSource()==jbt0){
             String id = String.valueOf(jtf.getText());
             String password = new String(jpf.getPassword());
             if (StringUtil.isEmpty(id)) {
-                JOptionPane.showMessageDialog(null, "请先输入账号");
+                JOptionPane.showMessageDialog(null, "请先输入学号");
                 return;
             }
             if (StringUtil.isEmpty(password)) {
                 JOptionPane.showMessageDialog(null, "密码不能为空");
                 return;
+            }
+            //锁定连接
+            Connection conn2=JdbcUtil.getConn();
+            try {
+                //到期解锁
+                LocalDateTime now = LocalDateTime.now();
+                ResultSet rs3= LockDao.checkLock(conn2,jtf.getText());
+                if (rs3!=null&&rs3.next()) {
+                    //查询锁定时间,获取锁定时间,超过三分钟就删除锁定记录,并且错误次数清零
+                    LocalDateTime lock_time = rs3.getTimestamp(2).toLocalDateTime();
+                    Duration duration=Duration.between(now,lock_time);
+                    long minutes= duration.toMinutes();
+                    if (Math.abs(minutes)>=3){
+                        //删除锁定记录,执行登录
+                        LockDao.unlockUrename(conn2, jtf.getText());
+                        conn2.close();
+                        count=3;
+                        User user = new User();
+                        user.setUserName(id);
+                        user.setPassword(password);
+                        Connection conn = JdbcUtil.getConn();
+                        try {
+                            ResultSet rs = UserDao.login(conn, user);
+                            if (rs.next()) {
+                                JOptionPane.showMessageDialog(null, "登录成功");
+                                new MainFrame(user.getUserName());
+                                conn.close();
+                                this.dispose();
+                            }else {
+                                count--;
+                                JOptionPane.showMessageDialog(null,"账号或者密码错误,剩余"+count+"次机会");
+                                if (count==0){
+                                    JOptionPane.showMessageDialog(null,"账号或者密码错误三次,已锁定");
+                                    //获取当前锁定时间
+                                    LocalDateTime now2 = LocalDateTime.now();
+                                    LockDao.lockUrename(conn,id,now2);
+                                    jbt0.setEnabled(false);
+                                    conn.close();
+                                }
+
+                            }
+                        } catch (SQLException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                    }else {
+                        JOptionPane.showMessageDialog(null,"账号已被锁定3分钟");
+                    }
+                    return;
+                }
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
             }
             Stu stu = new Stu();
             stu.setId(id);
@@ -133,8 +206,18 @@ public class StuLogin extends JFrame implements  KeyListener,ActionListener {
                     conn.close();
                 }else {
                     jpf.setText("");
-                    JOptionPane.showMessageDialog(null, "账号或者密码错误");
-                    return;
+                    count--;
+                    JOptionPane.showMessageDialog(null,"账号或者密码错误,剩余"+count+"次机会");
+                    if (count==0){
+                        JOptionPane.showMessageDialog(null,"账号或者密码错误三次,已锁定");
+                        //获取当前锁定时间
+                        LocalDateTime now = LocalDateTime.now();
+                        //写入锁定
+                        LockDao.lockUrename(conn,id,now);
+                        jbt0.setEnabled(false);
+                        conn.close();
+                    }
+
                 }
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
@@ -146,13 +229,18 @@ public class StuLogin extends JFrame implements  KeyListener,ActionListener {
             new StuRegister();
         }
         if (e.getSource()==jbt2){
+            //修改密码
             new stuChangePassword(jtf.getText());
             this.dispose();
 
         }
+        if (e.getSource() ==jbt3){
+            //切换到教师端
+            new login();
+            this.dispose();
+        }
 
     }
-
 
     @Override
     public void keyTyped(KeyEvent e) {}
@@ -163,12 +251,63 @@ public class StuLogin extends JFrame implements  KeyListener,ActionListener {
             String id = String.valueOf(jtf.getText());
             String password = new String(jpf.getPassword());
             if (StringUtil.isEmpty(id)) {
-                JOptionPane.showMessageDialog(null, "请先输入账号");
+                JOptionPane.showMessageDialog(null, "请先输入学号");
                 return;
             }
             if (StringUtil.isEmpty(password)) {
                 JOptionPane.showMessageDialog(null, "密码不能为空");
                 return;
+            }
+            Connection conn2=JdbcUtil.getConn();
+            try {
+                //到期解锁
+                LocalDateTime now = LocalDateTime.now();
+                ResultSet rs3= LockDao.checkLock(conn2,jtf.getText());
+                if (rs3!=null&&rs3.next()) {
+                    //查询锁定时间,获取锁定时间,超过三分钟就删除锁定记录,并且错误次数清零
+                    LocalDateTime lock_time = rs3.getTimestamp(2).toLocalDateTime();
+                    Duration duration=Duration.between(now,lock_time);
+                    long minutes= duration.toMinutes();
+                    if (Math.abs(minutes)>=3){
+                        //删除锁定记录,执行登录
+                        LockDao.unlockUrename(conn2, jtf.getText());
+                        conn2.close();
+                        count=3;
+                        User user = new User();
+                        user.setUserName(id);
+                        user.setPassword(password);
+                        Connection conn = JdbcUtil.getConn();
+                        try {
+                            ResultSet rs = UserDao.login(conn, user);
+                            if (rs.next()) {
+                                JOptionPane.showMessageDialog(null, "登录成功");
+                                new MainFrame(user.getUserName());
+                                conn.close();
+                                this.dispose();
+                            }else {
+                                count--;
+                                jpf.setText("");
+                                JOptionPane.showMessageDialog(null,"账号或者密码错误,剩余"+count+"次机会");
+                                if (count==0){
+                                    JOptionPane.showMessageDialog(null,"账号或者密码错误三次,已锁定");
+                                    //获取当前锁定时间
+                                    LocalDateTime now2 = LocalDateTime.now();
+                                    LockDao.lockUrename(conn,id,now2);
+                                    jbt0.setEnabled(false);
+                                    conn.close();
+                                }
+
+                            }
+                        } catch (SQLException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                    }else {
+                        JOptionPane.showMessageDialog(null,"账号已被锁定3分钟");
+                    }
+                    return;
+                }
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
             }
             Stu stu = new Stu();
             stu.setId(id);
@@ -183,8 +322,17 @@ public class StuLogin extends JFrame implements  KeyListener,ActionListener {
                     conn.close();
                 }else {
                     jpf.setText("");
-                    JOptionPane.showMessageDialog(null, "账号或者密码错误");
-                    return;
+                    count--;
+                    JOptionPane.showMessageDialog(null,"账号或者密码错误,剩余"+count+"次机会");
+                    if (count==0){
+                        JOptionPane.showMessageDialog(null,"账号或者密码错误三次,已锁定");
+                        //获取当前锁定时间
+                        LocalDateTime now = LocalDateTime.now();
+                        LockDao.lockUrename(conn,id,now);
+                        jbt0.setEnabled(false);
+                        conn.close();
+                    }
+
                 }
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);

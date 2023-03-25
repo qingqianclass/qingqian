@@ -13,6 +13,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
+/**
+ * @author qingqian
+ * 成绩排序类
+ */
 public class ScoreStatistics extends JPanel {
     JScrollPane jsp;
     JLabel jlb0;

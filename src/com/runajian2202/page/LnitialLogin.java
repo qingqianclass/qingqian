@@ -1,12 +1,15 @@
 package com.runajian2202.page;
 
-import org.apache.poi.ss.usermodel.FontCharset;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * @author qingqian
+ * 初始化界面
+ */
 public class LnitialLogin extends JFrame implements ActionListener {
     JPanel jpl;
     JLabel jlb,jlb1;
@@ -56,10 +59,12 @@ public class LnitialLogin extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==jbt0){
+            //学生端登录
             new StuLogin();
             this.dispose();
         }
         if (e.getSource()==jbt1){
+            //教师端登录
             new login();
             this.dispose();
         }

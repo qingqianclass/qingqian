@@ -50,7 +50,6 @@ public class ScoreList extends JPanel {
         jtm.setRowCount(0);
         Connection conn = JdbcUtil.getConn();
         try {
-            User user=new User();
             ResultSet rs = ScoreDao.list(conn, new Score(),s);
             while (rs.next()) {
                 Vector v = new Vector();

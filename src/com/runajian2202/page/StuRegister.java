@@ -17,6 +17,10 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * @author qingqian
+ * 学生注册
+ */
 public class StuRegister extends JFrame implements ActionListener {
 
     JLabel jlb0, jlb1, jlb2, jlb3, jlb4;

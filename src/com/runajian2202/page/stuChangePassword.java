@@ -14,6 +14,10 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * @author qingqian
+ * 学生密码修改
+ */
 public class stuChangePassword  extends JFrame implements ActionListener {
     JLabel label1, label2, label3, label4, label5, label6;
     JTextField jtf, jtf2;
@@ -128,7 +132,7 @@ public class stuChangePassword  extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == jbt) {
-            //切换验证码
+            //手动刷新验证码
             setCode(VerificationCode.code());
             jbt.setText(getCode());
         }if (e.getSource()==jbt3){
@@ -154,6 +158,7 @@ public class stuChangePassword  extends JFrame implements ActionListener {
                 return;
             }if (!jtf2.getText().trim().equals(getCode())) {
                 JOptionPane.showMessageDialog(null, "验证码错误");
+                //错误后刷新验证码
                 setCode(VerificationCode.code());
                 jbt.setText(getCode());
                 return;
@@ -173,6 +178,7 @@ public class stuChangePassword  extends JFrame implements ActionListener {
                 throw new RuntimeException(ex);
             }
             try {
+                //旧密码校验
                 ResultSet rs=StuDao.FindPassword(conn,oldPassword,jtf.getText());
                 if (!rs.next()){
                     JOptionPane.showMessageDialog(null,"旧密码不正确");

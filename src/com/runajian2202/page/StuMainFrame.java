@@ -142,7 +142,9 @@ public class StuMainFrame extends JFrame implements ActionListener {
                     conn.close();
                     return;
                 }
+                //获取对应教师用户名
                 String teacherName = rs2.getString("teacherName");
+                //将学号和对应的用户名传入,查找对应的成绩
                 ResultSet rs3 = StuDao.findGrade(conn,jtf1.getText(),teacherName);
                 if (rs3.next()){
                     jtf2.setText(rs3.getString("sname"));
@@ -159,6 +161,7 @@ public class StuMainFrame extends JFrame implements ActionListener {
                 sum=chinese1.add(math1).add(english1);
                 //然而BigDecimal只是解决精度问题的手段，获取double数据才是我们的目的
                 double sum2 = sum.doubleValue();
+                //总分写入
                 jtf6.setText(String.valueOf(sum2));
 
             } catch (SQLException ex) {

@@ -161,7 +161,6 @@ public class ScoreAdd extends JPanel implements ActionListener {
 
             }
             Score score = new Score();
-            User user = new User();
             //查重并且对添加错误数据格式进行异常处理
             try {
                 int idCheck = Integer.parseInt(jtf0.getText());
@@ -169,16 +168,17 @@ public class ScoreAdd extends JPanel implements ActionListener {
                 Connection conn1 = JdbcUtil.getConn();
                 try {
                     //f5.getText()用户名,也是就要添加的表的表名
+                    //这里查两次,是因为我们数据库,每个老师录入的成绩单独成表,还需要查询idtable表
                     ResultSet rs1 = DuplicateCheck.addTools(conn1, score,jtf5.getText());
                     ResultSet rs2= StuDao.stuIdChecked_as_idtable(conn1,jtf0.getText());
                     if (rs2.next()){
-                        JOptionPane.showMessageDialog(null,"学号已存在");
+                        JOptionPane.showMessageDialog(null,"成绩库中已存在该学号");
                         jtf0.setText("");
                         conn1.close();
                         return;
                     }
                     if (rs1.next()) {
-                        JOptionPane.showMessageDialog(null, "学号已存在");
+                        JOptionPane.showMessageDialog(null, "成绩库中已存在该学号");
                         jtf0.setText("");
                         conn1.close();
                         return;
@@ -212,7 +212,7 @@ public class ScoreAdd extends JPanel implements ActionListener {
                 Connection conn = JdbcUtil.getConn();
                 try {
                     int rs = ScoreDao.add(conn, score,jtf5.getText());
-                    //插入学号和老师用户名
+                    //插入学号和老师用户名到idtable表,绑定学号和老师用户名,后期学生端查询成绩才能对应学号和成绩
                     StuDao.insertId_and_teacherName(conn,jtf0.getText(),jtf5.getText());
                     if (rs != 0) {
                         JOptionPane.showMessageDialog(null, "录入成功");

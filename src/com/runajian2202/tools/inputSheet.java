@@ -7,6 +7,10 @@ import javax.swing.text.Style;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.*;
 
+/**
+ * @author qingqian
+ * 打印成绩类
+ */
 public class inputSheet {
     public static void saveTableToExcel(JTable table) {
         String sheetName = "成绩单"; // 表名

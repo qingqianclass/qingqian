@@ -17,6 +17,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
+/**
+ * @author qingqian
+ * 学生成绩修改类
+ */
 public class ScoreUpdate extends JPanel implements ActionListener {
     JLabel jlb0, jlb1, jlb2, jlb3, jlb4, jlb5;
     JTextField jtf0, jtf1, jtf2, jtf3, jtf4,jtf5;

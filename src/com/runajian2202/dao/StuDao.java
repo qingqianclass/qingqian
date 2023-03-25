@@ -28,11 +28,13 @@ public class StuDao {
         ps.setString(2, s.getPassword());
         return ps.executeUpdate();
     }
+    //学生旧密码校验
     public static ResultSet FindPassword(Connection conn,String oldPassword,String id) throws SQLException {
         String sql="select password from students where password="+"\""+oldPassword+"\""+" and "+"ID="+"\""+id+"\"";
         PreparedStatement ps = conn.prepareStatement(sql);
         return ps.executeQuery();
     }
+    //学生密码修改
     public static int updateStuPasswords(Connection conn,Stu s) throws SQLException {
         String sql="UPDATE students set password="+"\""+s.getPassword()+"\""+" where ID="+"\""+s.getId()+"\"";
         PreparedStatement ps=conn.prepareStatement(sql);
@@ -58,11 +60,13 @@ public class StuDao {
         pst.setString(2,teacherName);
         return pst.executeUpdate();
   }
+  //查找学号对应的老师
   public static ResultSet findTeacherName(Connection conn,String id) throws SQLException {
         String sql="select teacherName from idtable where ID="+id;
         PreparedStatement ps=conn.prepareStatement(sql);
         return ps.executeQuery();
   }
+  //查找学生成绩
   public static ResultSet findGrade(Connection conn,String id,String teacherName) throws SQLException {
         String sql="select * from "+teacherName+" where sid="+id;
         PreparedStatement ps = conn.prepareStatement(sql);

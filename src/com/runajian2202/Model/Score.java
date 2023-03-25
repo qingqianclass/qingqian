@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 /**
  * @author qingqian
- * 成绩实例
+ * 成绩信息类
  */
 public class Score {
     private int sid;

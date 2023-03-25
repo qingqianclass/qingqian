@@ -1,5 +1,9 @@
 package com.runajian2202.Model;
 
+/**
+ * @author qingqian
+ * 学生信息类
+ */
 public class Stu {
     public Stu() {
     }
