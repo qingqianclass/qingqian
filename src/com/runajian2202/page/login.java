@@ -17,6 +17,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 
 /**
@@ -194,7 +195,26 @@ public class login extends JFrame implements KeyListener, ActionListener {
                             throw new RuntimeException(ex);
                         }
                     }else {
-                        JOptionPane.showMessageDialog(null,"账号已被锁定3分钟");
+                        //获得解锁倒计时
+                        Connection conn3 = JdbcUtil.getConn();
+                        //获取当前时间
+                        LocalTime now3 = LocalTime.now();
+                       ResultSet rs4= LockDao.checkLock(conn3, userName);
+                       rs4.next();
+                       //获取锁定时间
+                       LocalTime lockTime= rs4.getTime("lock_time").toLocalTime();
+                       Duration duration1=Duration.between(lockTime,now3);
+                       //计算相差秒数
+                       long seconds=duration1.getSeconds();
+                       long s=180-seconds;
+                        //写入倒计时
+                        LockDao.lockSeconds(conn3,userName,s);
+                        //查询倒计时
+                        ResultSet rs5=LockDao.checkLock(conn3,userName);
+                        rs5.next();
+                        long s2=rs5.getLong("lock_seconds");
+                        JOptionPane.showMessageDialog(null,s2+"秒后解锁");
+                        conn3.close();
                     }
                     return;
                 }
@@ -217,13 +237,11 @@ public class login extends JFrame implements KeyListener, ActionListener {
                     count--;
                     JOptionPane.showMessageDialog(null,"账号或者密码错误,剩余"+count+"次机会");
                     if (count==0){
-                        JOptionPane.showMessageDialog(null,"账号或者密码错误三次,已锁定");
+                        JOptionPane.showMessageDialog(null,"账号或者密码错误3次,已锁定");
                         //获取当前锁定时间
                         LocalDateTime now = LocalDateTime.now();
                         //写入锁定
                         LockDao.lockUrename(conn,userName,now);
-                        //登录按钮不可用
-                        jbt0.setEnabled(false);
                         conn.close();
                     }
 
@@ -300,7 +318,6 @@ public class login extends JFrame implements KeyListener, ActionListener {
                                 //获取当前锁定时间
                                 LocalDateTime now2 = LocalDateTime.now();
                                 LockDao.lockUrename(conn, userName, now2);
-                                jbt0.setEnabled(false);
                                 conn.close();
                             }
 
@@ -309,7 +326,26 @@ public class login extends JFrame implements KeyListener, ActionListener {
                         throw new RuntimeException(ex);
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "账号已被锁定3分钟");
+                    //获得解锁倒计时
+                    Connection conn3 = JdbcUtil.getConn();
+                    //获取当前时间
+                    LocalTime now3 = LocalTime.now();
+                    ResultSet rs4= LockDao.checkLock(conn3, userName);
+                    rs4.next();
+                    //获取锁定时间
+                    LocalTime lockTime= rs4.getTime("lock_time").toLocalTime();
+                    Duration duration1=Duration.between(lockTime,now3);
+                    //计算相差秒数
+                    long seconds=duration1.getSeconds();
+                    long s=180-seconds;
+                    //写入倒计时
+                    LockDao.lockSeconds(conn3,userName,s);
+                    //查询倒计时
+                    ResultSet rs5=LockDao.checkLock(conn3,userName);
+                    rs5.next();
+                    long s2=rs5.getLong("lock_seconds");
+                    JOptionPane.showMessageDialog(null,s2+"秒后解锁");
+                    conn3.close();
                 }
                 return;
             }
@@ -335,7 +371,6 @@ public class login extends JFrame implements KeyListener, ActionListener {
                     //获取当前锁定时间
                     LocalDateTime now = LocalDateTime.now();
                     LockDao.lockUrename(conn, userName, now);
-                    jbt0.setEnabled(false);
                     conn.close();
                 }
 

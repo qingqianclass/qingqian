@@ -42,6 +42,7 @@ public class LnitialLogin extends JFrame implements ActionListener {
         jbt1.setFocusPainted(false);
         jbt1.addActionListener(this);
 
+
         jpl=new JPanel();
         jpl.setLayout(null);
         jpl.add(jlb);
@@ -50,6 +51,7 @@ public class LnitialLogin extends JFrame implements ActionListener {
         jpl.add(jbt1);
         this.add(jpl);
         setVisible(true);
+
     }
 
     public static void main(String[] args) {

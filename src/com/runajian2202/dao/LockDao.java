@@ -26,4 +26,11 @@ public class LockDao {
         ps.setString(1, name);
         return ps.executeUpdate();
     }
+    public static int lockSeconds(Connection conn, String name, long seconds) throws SQLException {
+        String sql = "UPDATE user_lock set lock_seconds=? where username=?";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setLong(1, seconds);
+        ps.setString(2,name);
+        return ps.executeUpdate();
+    }
 }
