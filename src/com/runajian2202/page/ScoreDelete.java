@@ -15,8 +15,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import static com.sun.xml.internal.ws.policy.sourcemodel.wspolicy.XmlToken.Name;
-
 /**
  * @author qingqian
  * 删除成绩
@@ -145,9 +143,12 @@ public class ScoreDelete extends JPanel implements ActionListener {
                 return;
             }
             Score score = new Score();
-            User user = new User();
             score.setSid(Integer.parseInt(jtf0.getText()));
             Connection conn = JdbcUtil.getConn();
+            if (jtf1.getText()!=null){
+                JOptionPane.showMessageDialog(null,"请先查询");
+                return;
+            }
             try {
                 int i= JOptionPane.showConfirmDialog(null, "确认删除" );
              if (i==0) {
