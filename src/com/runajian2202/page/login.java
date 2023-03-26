@@ -146,8 +146,7 @@ public class login extends JFrame implements KeyListener, ActionListener {
         setResizable(false);
         //窗口可视化
         setVisible(true);
-        Color bgColor = new Color(255, 240, 245);
-        index.setBackground(bgColor);
+
     }
 
 
@@ -269,11 +268,12 @@ public class login extends JFrame implements KeyListener, ActionListener {
             }
         }
         if (e.getSource() == jbt1) {
-            this.dispose();
             new Register();
-        }if (e.getSource()==jbt2){
             this.dispose();
+        }if (e.getSource()==jbt2){
             new ChangePassword(jtf.getText());
+            this.dispose();
+
         }
         if (e.getSource() ==jbt3){
             //切换学生端

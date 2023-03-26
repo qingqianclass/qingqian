@@ -13,6 +13,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,7 +27,7 @@ import java.sql.SQLException;
  * @author qingqian
  */
 public class Register extends JFrame implements ActionListener {
-    JLabel jlb0, jlb1, jlb2, jlb3, jlb4;
+    JLabel jlb0, jlb1, jlb2, jlb3, jlb4,jlb5;
     JTextField jtf, jtf2;
     JPasswordField jpf0, jpf1;
     JButton jbt0, jbt1, jbt2;
@@ -114,6 +115,17 @@ public class Register extends JFrame implements ActionListener {
         //去掉文本框
         jbt1.setFocusPainted(false);
 
+        //背景图片
+        jlb5=new JLabel();
+        jlb5.setBounds(0,0,420,600);
+        //设置成不透明
+        jlb5.setOpaque(true);
+        //处理背景图片url
+        URL url = getClass().getResource("/IMG/img2.png");
+        if (url!=null){
+            jlb5.setIcon(new ImageIcon(url));
+        }
+
         //添加到容器,容器添加到主页
         index = new JPanel();
         index.setLayout(null);
@@ -130,6 +142,7 @@ public class Register extends JFrame implements ActionListener {
         index.add(jbt2);
         index.add(jlb4);
         index.add(jtf2);
+        index.add(jlb5);
         add(index);
 
         setSize(420, 600);
@@ -140,8 +153,6 @@ public class Register extends JFrame implements ActionListener {
         //固定窗口,不允许调整大小
         setResizable(false);
         setVisible(true);
-        Color bgColor = new Color(255, 240, 245);
-        index.setBackground(bgColor);
 
     }
 
