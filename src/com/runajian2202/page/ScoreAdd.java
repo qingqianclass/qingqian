@@ -1,11 +1,9 @@
 package com.runajian2202.page;
 
-import com.runajian2202.Model.User;
-import com.runajian2202.dao.ScoreDao;
 import com.runajian2202.Model.Score;
+import com.runajian2202.dao.ScoreDao;
 import com.runajian2202.dao.StuDao;
 import com.runajian2202.tools.DuplicateCheck;
-
 import com.runajian2202.tools.ScoreRange;
 import com.runajian2202.tools.StringUtil;
 import com.runajian2202.util.JdbcUtil;
@@ -82,7 +80,6 @@ public class ScoreAdd extends JPanel implements ActionListener {
         jtf4.setBounds(280, 410, 440, 40);
 
         jbt0 = new JButton("添加");
-        jbt0.setBackground(Color.GREEN);
         jbt0.setBounds(280, 500, 200, 40);
         jbt0.setFont(new Font("微软雅黑", Font.BOLD, 14));
         jbt0.addActionListener(this);
@@ -92,7 +89,6 @@ public class ScoreAdd extends JPanel implements ActionListener {
         jbt1 = new JButton("重置");
         jbt1.setFont(new Font("微软雅黑", Font.BOLD, 14));
         jbt1.setBounds(520, 500, 200, 40);
-        jbt1.setBackground(Color.magenta);
         jbt1.addActionListener(this);
         jbt1.setFocusPainted(false);
 

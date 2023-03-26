@@ -81,7 +81,6 @@ public class ScoreUpdate extends JPanel implements ActionListener {
         jtf4.setEditable(false);
 
         jbt0 = new JButton("查询");
-        jbt0.setBackground(Color.GREEN);
         jbt0.setBounds(280, 500, 200, 40);
         jbt0.setFont(new Font("微软雅黑", Font.BOLD, 14));
         jbt0.addActionListener(this);
@@ -90,7 +89,6 @@ public class ScoreUpdate extends JPanel implements ActionListener {
         jbt1 = new JButton("修改");
         jbt1.setFont(new Font("微软雅黑", Font.BOLD, 14));
         jbt1.setBounds(520, 500, 200, 40);
-        jbt1.setBackground(Color.magenta);
         jbt1.addActionListener(this);
         jbt1.setFocusPainted(false);
         jtf5=new JTextField(name);

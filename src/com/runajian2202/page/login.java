@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,7 +29,7 @@ import java.time.LocalTime;
  */
 
 public class login extends JFrame implements KeyListener, ActionListener {
-    JLabel jlb0, jlb1, jlb2;
+    JLabel jlb0, jlb1, jlb2,jlb3;
     JTextField jtf;
     JPasswordField jpf;
     JButton jbt0, jbt1,jbt2,jbt3;
@@ -91,7 +92,10 @@ public class login extends JFrame implements KeyListener, ActionListener {
         jbt2.addActionListener(this);
         jbt2.setFocusPainted(false);
         jbt2.setBorderPainted(false);
-        jbt2.setBackground(new Color(255, 240, 245));
+        //设置成透明
+        jbt2.setOpaque(false);
+        //不填充背景
+        jbt2.setContentAreaFilled(false);
 
         jbt3=new JButton("切换学生端");
         jbt3.setBounds(0,520,110,40);
@@ -99,7 +103,21 @@ public class login extends JFrame implements KeyListener, ActionListener {
         jbt3.addActionListener(this);
         jbt3.setFocusPainted(false);
         jbt3.setBorderPainted(false);
-        jbt3.setBackground(new Color(255, 240, 245));
+        //设置成透明
+        jbt3.setOpaque(false);
+        //不填充背景
+        jbt3.setContentAreaFilled(false);
+
+        //背景图片
+        jlb3=new JLabel();
+        jlb3.setBounds(0,0,420,600);
+        //设置成不透明
+        jlb3.setOpaque(true);
+        //处理背景图片url
+        URL url = getClass().getResource("/IMG/img2.png");
+        if (url!=null){
+            jlb3.setIcon(new ImageIcon(url));
+        }
 
 
         //添加标签到容器index
@@ -115,6 +133,7 @@ public class login extends JFrame implements KeyListener, ActionListener {
         index.add(jbt1);
         index.add(jbt2);
         index.add(jbt3);
+        index.add(jlb3);
 
 
         //index容器添加到窗口
@@ -189,7 +208,6 @@ public class login extends JFrame implements KeyListener, ActionListener {
                                     jbt0.setEnabled(false);
                                     conn.close();
                                 }
-
                             }
                         } catch (SQLException ex) {
                             throw new RuntimeException(ex);
@@ -270,7 +288,7 @@ public class login extends JFrame implements KeyListener, ActionListener {
     @Override
     public void keyPressed(KeyEvent e) {
         //键盘监听,回车登录,一键爽
-        //代码和鼠标监听一致
+        //代码和动作监听一致
         if (e.getKeyChar() == KeyEvent.VK_ENTER){
             String userName = jtf.getText().trim();
         String password = new String(jpf.getPassword());

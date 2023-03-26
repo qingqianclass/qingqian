@@ -76,7 +76,6 @@ public class ScoreDelete extends JPanel implements ActionListener {
         jtf4.setEditable(false);
 
         jbt0 = new JButton("查询");
-        jbt0.setBackground(Color.PINK);
         jbt0.setBounds(280, 500, 200, 40);
         jbt0.setFont(new Font("微软雅黑", Font.BOLD, 14));
         jbt0.addActionListener(this);
@@ -85,7 +84,6 @@ public class ScoreDelete extends JPanel implements ActionListener {
         jbt1 = new JButton("删除");
         jbt1.setFont(new Font("微软雅黑", Font.BOLD, 14));
         jbt1.setBounds(520, 500, 200, 40);
-        jbt1.setBackground(new Color(255, 142, 133));
         jbt1.addActionListener(this);
         jbt1.setFocusPainted(false);
         //获取用户名:成绩表表名及用户名,土办法

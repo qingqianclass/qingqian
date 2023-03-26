@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,7 +29,7 @@ import java.time.LocalTime;
  * @author qingqian
  */
 public class StuLogin extends JFrame implements  KeyListener,ActionListener {
-    JLabel jlb0, jlb1, jlb2;
+    JLabel jlb0, jlb1, jlb2,jlb3;
     JTextField jtf;
     JPasswordField jpf;
     JButton jbt0, jbt1,jbt2,jbt3;
@@ -91,6 +92,8 @@ public class StuLogin extends JFrame implements  KeyListener,ActionListener {
         jbt2.setFocusPainted(false);
         jbt2.setBorderPainted(false);
         jbt2.setBackground(new Color(255, 240, 245));
+        jbt2.setOpaque(false);
+        jbt2.setContentAreaFilled(false);
 
        jbt3=new JButton("切换教师端");
        jbt3.setBounds(0,520,110,40);
@@ -99,6 +102,16 @@ public class StuLogin extends JFrame implements  KeyListener,ActionListener {
        jbt3.setFocusPainted(false);
        jbt3.setBorderPainted(false);
        jbt3.setBackground(new Color(255, 240, 245));
+       jbt3.setOpaque(false);
+       jbt3.setContentAreaFilled(false);
+
+       jlb3=new JLabel();
+       jlb3.setOpaque(true);
+       jlb3.setBounds(0,0,420,600);
+       URL url=getClass().getResource("/IMG/img1.png");
+       if (url != null){
+           jlb3.setIcon(new ImageIcon(url));
+       }
 
 
         //添加标签到容器index
@@ -114,6 +127,7 @@ public class StuLogin extends JFrame implements  KeyListener,ActionListener {
         index.add(jbt1);
         index.add(jbt2);
         index.add(jbt3);
+        index.add(jlb3);
 
         //index容器添加到窗口
         this.add(index);

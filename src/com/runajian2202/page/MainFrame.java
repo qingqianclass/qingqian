@@ -31,6 +31,7 @@ public class MainFrame extends JFrame implements ActionListener {
         jpl0.setBounds(0, 0, 1200, 100);
         jpl0.setBorder(BorderFactory.createEtchedBorder());
         jpl0.setLayout(null);
+        jpl0.setBackground(new Color(6, 176, 255));
 
         jlb0 = new JLabel("学生成绩管理系统");
         jlb0.setBounds(20, 24, 300, 50);
@@ -45,6 +46,7 @@ public class MainFrame extends JFrame implements ActionListener {
         jpl1 = new JPanel();
         jpl1.setLayout(null);
         jpl1.setBounds(10, 110, 260, 600);
+
 
         jbt0 = new JButton("成绩列表");
         jbt0.setBounds(10, 40, 240, 40);

@@ -5,6 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 
 /**
  * @author qingqian
@@ -12,7 +13,7 @@ import java.awt.event.ActionListener;
  */
 public class LnitialLogin extends JFrame implements ActionListener {
     JPanel jpl;
-    JLabel jlb,jlb1;
+    JLabel jlb,jlb1,jlb2;
     JButton jbt0,jbt1;
 
     public LnitialLogin()  {
@@ -42,6 +43,13 @@ public class LnitialLogin extends JFrame implements ActionListener {
         jbt1.setFocusPainted(false);
         jbt1.addActionListener(this);
 
+        jlb2=new JLabel();
+        jlb2.setBounds(0,0,600,500);
+        jlb2.setOpaque(true);
+        URL url=getClass().getResource("/IMG/img3.png");
+        if (url != null){
+            jlb2.setIcon(new ImageIcon(url));
+        }
 
         jpl=new JPanel();
         jpl.setLayout(null);
@@ -49,6 +57,7 @@ public class LnitialLogin extends JFrame implements ActionListener {
         jpl.add(jlb1);
         jpl.add(jbt0);
         jpl.add(jbt1);
+        jpl.add(jlb2);
         this.add(jpl);
         setVisible(true);
 

@@ -3,7 +3,7 @@ package com.runajian2202.tools;
 /**
  * 随机生成验证码
  *version 1.0
- * @author 夏宇航
+     * @author qingqian
  */
 public class VerificationCode {
 
